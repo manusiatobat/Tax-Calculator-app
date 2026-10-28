@@ -8,6 +8,9 @@ spec:
   description: Clone the Tax Calculator repo, install npm dependencies, run Jasmine tests, and build the image.
   workspaces:
     - name: pipeline-workspace
+    - name: dockerconfig-ws
+      description: Registry credentials (docker config) used by the build task to push the image
+      optional: true
   params:
     - name: repo-url
       description: Git repository to build
@@ -69,6 +72,8 @@ spec:
       workspaces:
         - name: source
           workspace: pipeline-workspace
+        - name: dockerconfig
+          workspace: dockerconfig-ws
       params:
         - name: IMAGE
           # Pushes to the internal registry of the namespace the pipeline runs in

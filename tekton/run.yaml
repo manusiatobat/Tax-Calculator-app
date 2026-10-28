@@ -20,6 +20,10 @@ spec:
           resources:
             requests:
               storage: 1Gi
+    # registry credentials: the secret docker-reg-creds must exist in the namespace before the run
+    - name: dockerconfig-ws
+      secret:
+        secretName: docker-reg-creds
   # params: values for the pipeline parameters
   params:
     - name: repo-url
