@@ -1,11 +1,13 @@
 # Repository: juphc-tc_pipeline (https://github.com/manusiatobat/juphc-tc_pipeline)
 # File: tekton/run.yaml
-# Required fields: apiVersion, kind, spec (pipelineRef, workspaces, params)
+# Required fields: apiVersion, kind, spec (serviceAccountName, pipelineRef, workspaces, params)
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   generateName: tax-calculator-pipeline-run-
 spec:
+  # serviceAccountName: service account that runs the pipeline (created by OpenShift Pipelines)
+  serviceAccountName: pipeline
   pipelineRef:
     name: tax-calculator-pipeline
   # workspaces: shared storage used by all pipeline tasks (matches workspace "pipeline-workspace")
