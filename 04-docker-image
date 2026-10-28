@@ -1,3 +1,3 @@
 $ docker ps
-CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                     NAMES
-59f4f9d2a819   tax-calculator:1.0   "/docker-entrypoint.…"   53 seconds ago   Up 53 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   tax-calculator
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+2d9717d32e4c   tax-calculator   "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   tax-calculator

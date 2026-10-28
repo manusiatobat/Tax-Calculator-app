@@ -1,7 +1,7 @@
 
 $ docker ps --filter name=tax-calculator
-CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                     NAMES
-59f4f9d2a819   tax-calculator:1.0   "/docker-entrypoint.…"   18 seconds ago   Up 18 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   tax-calculator
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+2d9717d32e4c   tax-calculator   "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   tax-calculator
 
 $ curl -s -o /dev/null -w '/ -> HTTP %{http_code}, %{size_download} bytes, %{content_type}
 ' localhost:8080/
