@@ -1,0 +1,10 @@
+$ npx jasmine
+Randomized with seed 37321
+Started
+.......
+
+
+7 specs, 0 failures
+Finished in 0.009 seconds
+Randomized with seed 37321 (jasmine --random=true --seed=37321)
+(exit code: 0)

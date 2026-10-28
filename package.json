@@ -1,0 +1,12 @@
+{
+  "name": "tax-calculator",
+  "version": "1.0.0",
+  "description": "Tax Calculator app for the IBM Cloud Native, DevOps, Agile final project",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  }
+}

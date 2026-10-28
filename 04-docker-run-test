@@ -1,0 +1,41 @@
+
+$ docker ps --filter name=tax-calculator
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+59f4f9d2a819   tax-calculator:1.0   "/docker-entrypoint.…"   18 seconds ago   Up 18 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   tax-calculator
+
+$ curl -s -o /dev/null -w '/ -> HTTP %{http_code}, %{size_download} bytes, %{content_type}
+' localhost:8080/
+/ -> HTTP 200, 822 bytes, text/html
+
+$ curl -s -o /dev/null -w '/index.html -> HTTP %{http_code}, %{size_download} bytes, %{content_type}
+' localhost:8080/index.html
+/index.html -> HTTP 200, 822 bytes, text/html
+
+$ curl -s -o /dev/null -w '/script.js -> HTTP %{http_code}, %{size_download} bytes, %{content_type}
+' localhost:8080/script.js
+/script.js -> HTTP 200, 746 bytes, application/javascript
+
+$ curl -s -o /dev/null -w '/style.css -> HTTP %{http_code}, %{size_download} bytes, %{content_type}
+' localhost:8080/style.css
+/style.css -> HTTP 200, 551 bytes, text/css
+
+$ curl -s -o /dev/null -w '/taxCalculator.js -> HTTP %{http_code}, %{size_download} bytes, %{content_type}
+' localhost:8080/taxCalculator.js
+/taxCalculator.js -> HTTP 200, 1472 bytes, application/javascript
+
+$ curl -s -o /dev/null -w '/favicon.ico -> HTTP %{http_code}, %{size_download} bytes, %{content_type}
+' localhost:8080/favicon.ico
+/favicon.ico -> HTTP 200, 2110 bytes, image/x-icon
+
+$ curl -s localhost:8080/ | grep -E '<title>|<h1>'
+  <title>Tax Calculator</title>
+    <h1>Tax Calculator</h1>
+
+$ docker exec tax-calculator ls -l /usr/share/nginx/html
+total 24
+-rw-r--r-- 1 root root  497 Oct 21 14:24 50x.html
+-rw-r--r-- 1 root root 2110 Oct 28 04:30 favicon.ico
+-rw-r--r-- 1 root root  822 Oct 28 04:28 index.html
+-rw-r--r-- 1 root root  746 Oct 28 04:28 script.js
+-rw-r--r-- 1 root root  551 Oct 28 04:28 style.css
+-rw-r--r-- 1 root root 1472 Oct 28 04:28 taxCalculator.js

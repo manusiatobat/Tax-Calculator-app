@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tax Calculator</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Tax Calculator</h1>
+    <form id="form">
+      <label for="income">Annual income</label>
+      <input id="income" type="number" min="0" step="0.01" required>
+      <button type="submit">Calculate</button>
+    </form>
+    <p id="error" class="error" role="alert"></p>
+    <dl id="result" hidden>
+      <dt>Tax</dt><dd id="tax"></dd>
+      <dt>Net income</dt><dd id="net"></dd>
+      <dt>Effective rate</dt><dd id="rate"></dd>
+    </dl>
+  </main>
+  <script src="taxCalculator.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
