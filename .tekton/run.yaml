@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: tax-calculator-pipeline-run-
+spec:
+  pipelineRef:
+    name: tax-calculator-pipeline
+  params:
+    - name: repo-url
+      value: https://github.com/manusiatobat/Tax-Calculator-app.git
+    - name: branch
+      value: main
+    - name: image-name
+      value: tax-calculator
+    - name: image-tag
+      value: latest
+  workspaces:
+    - name: pipeline-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi

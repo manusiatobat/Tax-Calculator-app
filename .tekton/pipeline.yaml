@@ -1,0 +1,77 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: tax-calculator-pipeline
+spec:
+  description: Clone the Tax Calculator repo, install npm dependencies, run Jasmine tests, and build the image.
+  workspaces:
+    - name: pipeline-workspace
+  params:
+    - name: repo-url
+      description: Git repository to build
+      type: string
+    - name: branch
+      description: Branch to clone
+      type: string
+      default: main
+    - name: image-name
+      description: Name of the image to build
+      type: string
+      default: tax-calculator
+    - name: image-tag
+      description: Tag of the image to build
+      type: string
+      default: latest
+  tasks:
+    - name: clone
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: pipeline-workspace
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.branch)
+        - name: deleteExisting
+          value: "true"
+
+    - name: npminstall
+      taskRef:
+        name: npm
+      runAfter:
+        - clone
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+      params:
+        - name: ARGS
+          value: install
+
+    - name: tests
+      taskRef:
+        name: jasmine
+      runAfter:
+        - npminstall
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+
+    - name: build
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      runAfter:
+        - tests
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+      params:
+        - name: IMAGE
+          # Pushes to the internal registry of the namespace the pipeline runs in
+          value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.image-name):$(params.image-tag)
+        - name: DOCKERFILE
+          value: ./Dockerfile
+        - name: TLSVERIFY
+          value: "false"
